@@ -1,58 +1,87 @@
+<div align="center">
+
+<img src="assets/sprites/ui/vault-chest.png" width="64" alt="Vault chest" style="image-rendering: pixelated" />
+
 # RotMG Account Manager
 
-Tracker de conta para **Realm of the Mad God**: personagens, pots (8/8), exaltações, vault, pets, cemitério e coleção de itens UT/ST.
+**English** · [Português](README.pt-BR.md)
 
-Site estático, sem build e sem dependências. Os dados ficam salvos no `localStorage` do navegador.
+An account tracker for **Realm of the Mad God**: characters, stat pots (8/8), exaltations, vault, pets, graveyard and a UT/ST item collection.
 
-## Rodando localmente
+![JavaScript](https://img.shields.io/badge/JavaScript_ES_Modules-292524?logo=javascript&logoColor=F7DF1E)
+![HTML5](https://img.shields.io/badge/HTML5-292524?logo=html5&logoColor=E34F26)
+![CSS3](https://img.shields.io/badge/CSS3-292524?logo=css&logoColor=1572B6)
+![Zero dependencies](https://img.shields.io/badge/dependencies-zero-292524)
 
-Por usar ES modules, o app precisa ser servido por HTTP (abrir o `index.html` direto com `file://` não funciona):
+</div>
+
+A static site with no build step and no dependencies. Data is saved in the browser's `localStorage`.
+
+## Features
+
+- **Multiple accounts** with an account-level dashboard and progression
+- **Characters**: class, stat pots, exaltations and equipment
+- **Vault and inventory** with capacity rules
+- **Pets**: pet yard and fusion
+- **Graveyard**: fallen characters with a gravestone based on how many stats were maxed
+- **Item index**: collection of UT/ST items grouped by tier, with sprites for 750+ items
+
+## Running locally
+
+Because it uses ES modules, the app must be served over HTTP (opening `index.html` directly via `file://` won't work):
 
 ```bash
 python3 -m http.server 8000
-# abra http://localhost:8000
+# open http://localhost:8000
 ```
 
-Qualquer servidor estático serve (`npx serve`, extensão Live Server do VS Code etc.).
+Any static server works (`npx serve`, VS Code's Live Server extension, etc.).
 
-## Publicando no GitHub Pages
+## Deploying to GitHub Pages
 
-1. Suba o repositório para o GitHub.
-2. Em **Settings → Pages**, escolha *Deploy from a branch*, branch `main`, pasta `/ (root)`.
-3. O site fica em `https://<seu-usuario>.github.io/<nome-do-repo>/`.
+1. In **Settings → Pages**, choose *Deploy from a branch*, branch `main`, folder `/ (root)`.
+2. The site will be available at `https://<your-user>.github.io/<repo-name>/`.
 
-## Estrutura
+## Project structure
 
 ```
-index.html              página raiz (carrega CSS e js/main.js)
+index.html              root page (loads CSS and js/main.js)
 css/
-  base.css              tokens de cor, layout, header, botões
-  components.css        cards de item, modais, vault, inventário
-  home.css              tela de contas, dashboard, progressão da conta
-  characters.css        personagens, pots, exaltações, cemitério
-  pets.css              pets, pet yard, fusão
+  base.css              color tokens, layout, header, buttons
+  components.css        item cards, modals, vault, inventory
+  home.css              accounts screen, dashboard, account progression
+  characters.css        characters, pots, exaltations, graveyard
+  pets.css              pets, pet yard, fusion
 js/
-  main.js               ponto de entrada
-  state.js              estado, load/save no localStorage, migrações
-  utils.js              helpers genéricos (esc, uid, datas)
+  main.js               entry point
+  state.js              state, localStorage load/save, migrations
+  utils.js              generic helpers (escaping, ids, dates)
   data/
-    items.js            catálogo de itens e classes
-    game.js             constantes do jogo (pots, exalts, níveis de conta, pets)
-    sprites.js          mapa nome → arquivo de sprite
-  logic/                regras sem DOM (stats, vault, exalts, pets, capacidade)
+    items.js            item and class catalog
+    game.js             game constants (pots, exalts, account levels, pets)
+    sprites.js          name → sprite file map
+  logic/                DOM-free rules (stats, vault, exalts, pets, capacity)
   ui/
-    core.js             roteador de telas, header, modais genéricos
-    icons.js            ícones pixel-art e helpers de sprite
-  views/                uma tela por arquivo (saves, home, characters, vault…)
-assets/sprites/         PNGs de classes, itens, lápides e UI
+    core.js             screen router, header, generic modals
+    icons.js            pixel-art icons and sprite helpers
+  views/                one screen per file (saves, home, characters, vault…)
+assets/sprites/         PNGs for classes, items, gravestones and UI
 ```
 
-### Onde mexer
+Game rules live in `js/logic/` with no DOM access, and each screen is a self-contained module in `js/views/`, so adding a screen or fixing a rule touches a single file.
 
-- **Item novo ou drop errado**: `js/data/items.js`. Para o sprite, adicione o PNG em `assets/sprites/items/<categoria>/` e a entrada em `js/data/sprites.js` (sem sprite, aparece um ícone genérico).
-- **Tela nova**: crie `js/views/minhaTela.js`, exporte a função `renderX` e adicione o caso em `render()` no `js/ui/core.js`.
-- **Regra de jogo** (capacidade do vault, fusão de pets etc.): `js/logic/`.
+### Where to make changes
 
-## Dados salvos
+- **New item or wrong drop**: `js/data/items.js`. For the sprite, add the PNG to `assets/sprites/items/<category>/` and an entry in `js/data/sprites.js` (items without a sprite show a generic icon).
+- **New screen**: create `js/views/myScreen.js`, export a `renderX` function and add the case to `render()` in `js/ui/core.js`.
+- **Game rule** (vault capacity, pet fusion, etc.): `js/logic/`.
 
-Tudo fica em `localStorage` na chave `rotmg-account-v3`. Os dados pertencem ao navegador e ao endereço do site, então trocar de domínio (ex.: de `localhost` para o GitHub Pages) começa com as contas vazias.
+## Saved data
+
+Everything is stored in `localStorage` under the `rotmg-account-v3` key. Data belongs to the browser and the site's address, so switching domains (e.g. from `localhost` to GitHub Pages) starts with empty accounts.
+
+## License
+
+The code is released under the [MIT](LICENSE) license.
+
+Realm of the Mad God, its sprites and item names are the property of DECA Games. This is a non-commercial fan project and is not affiliated with DECA Games.

@@ -21,7 +21,7 @@ function load(){try{const r=localStorage.getItem(SKEY);if(r){STATE=JSON.parse(r)
   (s.characters||[]).forEach(ch=>{if(typeof ch.backpack!=='boolean')ch.backpack=false;for(const key in ch.items)migrateItemEntry(ch.items[key]);});
   for(const rk in s.rings)migrateItemEntry(s.rings[rk]);
 });}}catch(e){}}
-function sv(){try{localStorage.setItem(SKEY,JSON.stringify(STATE));}catch(e){}}
+function sv(){try{localStorage.setItem(SKEY,JSON.stringify(STATE));}catch(e){}try{window.dispatchEvent(new Event('rotmg-saved'));}catch(e){}}
 function curSave(){return STATE.saves[STATE.currentSave];}
 function curChar(){const s=curSave();return s?s.characters.find(c=>c.id===STATE.currentCharId):null;}
 

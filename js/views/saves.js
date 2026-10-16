@@ -2,6 +2,7 @@ import { saveStats } from '../logic/items.js';
 import { STATE, emptySave, sv } from '../state.js';
 import { confirmModal, go, render, root } from '../ui/core.js';
 import { esc } from '../utils.js';
+import { renderCl4pCard } from '../cl4p.js';
 
 // ═══ SAVES ═══════════════════════════════════════════════
 function renderSaves(){
@@ -33,6 +34,7 @@ function renderSaves(){
     }
   });
   root.appendChild(g);
+  root.appendChild(renderCl4pCard());
   root.appendChild(Object.assign(document.createElement('footer'),{innerHTML:'Progress saved in localStorage.'}));
 }
 

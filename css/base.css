@@ -121,3 +121,16 @@ h1 span{color:var(--text-dim);font-size:12.5px;letter-spacing:.5px;display:block
 footer{margin-top:34px;text-align:center;color:var(--text-mute);font-size:11px;line-height:1.8;padding-top:16px;border-top:1px solid var(--line);}
 footer a{color:var(--gold);}
 ::selection{background:var(--gold);color:#1a1512;}
+
+/* CL4P-RZ link card (accounts screen) */
+.cl4p-card{max-width:520px;margin:24px auto 0;padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:4px;color:var(--text);text-align:left}
+.cl4p-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cl4p-title{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.cl4p-state{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute)}
+.cl4p-state.on{color:var(--gold-bright)}
+.cl4p-text{font-size:13px;color:var(--text-dim);line-height:1.5;margin:8px 0}
+.cl4p-text.mono{color:var(--text)}
+.cl4p-err{font-size:13px;color:#e07a63;margin:6px 0 0}
+.cl4p-row{display:flex;gap:8px;margin-top:8px}
+.cl4p-input{flex:1;min-width:0;font-size:16px;padding:10px 12px;border:1px solid var(--line-bright);border-radius:4px;background:var(--panel2);color:var(--text)}
+.cl4p-row .btn{min-height:44px}

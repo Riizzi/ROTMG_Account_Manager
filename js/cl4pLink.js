@@ -75,14 +75,20 @@ function cl4pDesvincular() {
 function cl4pCapturarDaUrl() {
   try {
     const u = new URL(window.location.href);
-    const cod = u.searchParams.get("cl4p");
+    const hash2 = new URLSearchParams(u.hash.replace(/^#/, ""));
+    const cod = hash2.get("cl4p") || u.searchParams.get("cl4p");
     if (!cod) return false;
     u.searchParams.delete("cl4p");
-    history.replaceState(history.state, "", u.pathname + u.search + u.hash);
+    hash2.delete("cl4p");
+    const resto = hash2.toString();
+    history.replaceState(history.state, "", u.pathname + u.search + (resto ? `#${resto}` : ""));
     return cl4pVincular(cod);
   } catch {
     return false;
   }
+}
+function cl4pVinculo() {
+  return vinculo ? { ...vinculo } : null;
 }
 function cl4pCapturarDeepLink(url) {
   try {
@@ -162,5 +168,6 @@ export {
   cl4pPublicar,
   cl4pStatus,
   cl4pVincular,
+  cl4pVinculo,
   decodificarCodigo
 };
